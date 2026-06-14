@@ -1,0 +1,32 @@
+.display-large {
+  font: var(--display-large);
+}
+
+.label-large {
+  font: var(--label-large);
+}
+
+.paragraph-large {
+  font: var(--paragraph-large);
+  color: var(--content-secondary);
+}
+.overline {
+  font: var(--overline);
+  background: var(--gradient-content);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.display-small {
+  font: var(--display-small);
+}
+
+.paragraph-small {
+  font: var(--paragraph-small);
+  color: var(--content-secondary);
+}
+
+.question-title {
+  color: var(--content-brand);
+  font: var(--paragraph-medium);
+}

@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Numbers</title>
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/utility.css" />
+    <link rel="stylesheet" href="/styles/texts.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,7 +16,91 @@
       rel="stylesheet"
     />
   </head>
-  <body>
-    <main></main>
+  <body class="flex">
+    <main class="flex">
+      <div class="flex column gap-38">
+        <div class="flex column gap-12">
+          <p class="overline">ONLINE - GRATUITO</p>
+
+          <h1 class="display-large">SORTEADOR DE NÚMEROS</h1>
+        </div>
+
+        <div class="questions flex column gap-38">
+          <div class="flex gap-8">
+            <img
+              src="/assets/question-icon.svg"
+              alt="ícone de questão"
+              class="question-icon"
+            />
+
+            <div class="question gap-36">
+              <p class="question-title flex">
+                Como funciona o sorteador de números?
+              </p>
+
+              <p class="paragraph-small">
+                O sorteador utiliza um algoritmo de geração aleatória para criar
+                números dentro do intervalo especificado pelo usuário.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-8">
+            <img
+              src="/assets/question-icon.svg"
+              alt="ícone de questão"
+              class="question-icon"
+            />
+            <div class="question">
+              <p class="question-title flex">
+                Posso escolher o intervalo dos números?
+              </p>
+              <p class="paragraph-small">
+                Sim, você pode definir os valores mínimo e máximo para o
+                intervalo dos números sorteados.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="flex column gap-40">
+        <div class="description">
+          <p class="label-large">QUERO SORTEAR:</p>
+          <p class="paragraph-large">
+            defina o intervalo e a quantidade de números, clique em "Sortear" e
+            veja os resultados na tela. É rápido e fácil!
+          </p>
+        </div>
+        <div class="definer gap-20">
+          <form class="flex">
+            <fieldset class="flex gap-12">
+              <p class="flex column gap-8">
+                <label for="number-amount">NÚMEROS</label>
+                <input type="text" id="number-amount" class="display-small" />
+              </p>
+
+              <p class="flex column gap-8">
+                <label for="from" class="flex">DE</label>
+                <input type="text" id="from" class="display-small" />
+              </p>
+
+              <p class="flex column gap-8">
+                <label for="to">ATÉ</label>
+                <input type="text" id="to" class="display-small" />
+              </p>
+            </fieldset>
+          </form>
+          <div class="repeat flex gap-8">
+            <div id="back" class="flex">
+              <div id="circle" class="flex"></div>
+            </div>
+            <p class="paragraph-small">Não repetir número</p>
+          </div>
+        </div>
+        <button class="sort flex gap-8" type="submit">
+          SORTEAR <img src="/assets/arrow-sort.svg" alt="seta-de-envio" />
+        </button>
+      </aside>
+    </main>
   </body>
 </html>
