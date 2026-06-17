@@ -87,17 +87,6 @@ label {
   align-items: center;
 }
 
-.repeat.active {
-  position: relative;
-  #back {
-    background-image: var(--gradient-background);
-  }
-
-  #circle {
-    transform: translateX(70%);
-  }
-}
-
 #back {
   display: flex;
   background-color: var(--content-tertiary);
@@ -108,6 +97,14 @@ label {
   align-items: center;
   transition: background-image 0.2s ease;
   cursor: pointer;
+}
+
+#back.active {
+  background-image: var(--gradient-background);
+
+  #circle {
+    transform: translateX(70%);
+  }
 }
 
 #circle {
