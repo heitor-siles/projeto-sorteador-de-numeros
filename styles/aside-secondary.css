@@ -12,6 +12,7 @@
   padding-block: 2.5rem;
   align-items: center;
   justify-content: center;
+  gap: 1.5rem;
 }
 
 .result {
@@ -25,13 +26,20 @@
   font: 700 3rem/150% var(--ff-roboto-mono);
   color: var(--content-brand);
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .square {
+  display: flex;
   background-color: transparent;
   width: 6.25rem;
   aspect-ratio: 1/1;
   border-radius: 1.75rem;
+  align-items: center;
+  justify-content: center;
+  animation: 2s ease square;
 }
 
 .again {
@@ -76,5 +84,17 @@
 @keyframes rotate {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes square {
+  from {
+    transform: rotate(0deg);
+    background-color: var(--content-brand);
+  }
+
+  to {
+    transform: rotate(360deg);
+    background-color: transparent;
   }
 }
