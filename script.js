@@ -25,32 +25,68 @@ repeat.onclick = function () {
   } else {
     canRepeat = true;
   }
+
+  console.log(canRepeat);
 };
 
 sortButton.addEventListener("click", () => {
-  try {
-    numbersToSort = Number(numberAmount.value);
-    minimalNumber = Number(from.value);
-    maximumNumber = Number(to.value);
+  numbersToSort = Number(numberAmount.value);
+  minimalNumber = Number(from.value);
+  maximumNumber = Number(to.value);
 
-    let numbersSorted = new Array(numbersToSort);
+  if (
+    numbersToSort <= maximumNumber - minimalNumber &&
+    maximumNumber > minimalNumber
+  ) {
+    try {
+      let numbersSorted = new Array(numbersToSort);
+      let newNumber;
 
-    for (let i = 0; i < numbersSorted.length; i++) {
-      numbersSorted[i] = generateNumber(minimalNumber, maximumNumber);
-      let newNumber = numbersSorted.at(i);
-      console.log(newNumber);
+      for (let i = 0; i < numbersSorted.length; i++) {
+        if (canRepeat) {
+          numbersSorted[i] = generateNumber(minimalNumber, maximumNumber);
+          newNumber = numbersSorted.at(i);
+        } else {
+          numbersSorted[i] = generateNonRepeatedNumber(
+            minimalNumber,
+            maximumNumber,
+            numbersSorted,
+          );
+          newNumber = numbersSorted.at(i);
+        }
 
-      createNumberElement(newNumber);
+        createNumberElement(newNumber);
+      }
+
+      asidePrimary.classList.toggle("inactive");
+      asideSecondary.classList.toggle("inactive");
+    } catch (error) {
+      console.log(
+        "Não foi possível gerar o sorteio. Tente novamente mais tarde!",
+      );
     }
-
-    asidePrimary.classList.toggle("inactive");
-    asideSecondary.classList.toggle("inactive");
-  } catch (error) {
+  } else {
     console.log(
-      "Não foi possível gerar o sorteio. Tente novamente mais tarde!",
+      "A quantidade de números a ser sorteada é maior que o intervalor definido.",
     );
   }
 });
+
+function generateNonRepeatedNumber(
+  minimalNumber,
+  maximumNumber,
+  numbersSorted,
+) {
+  let min = Math.ceil(minimalNumber);
+  let max = Math.floor(maximumNumber);
+  let generatedNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
+  while (numbersSorted.includes(generatedNumber)) {
+    generatedNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  return generatedNumber;
+}
 
 function generateNumber(minimalNumber, maximumNumber) {
   let min = Math.ceil(minimalNumber);
@@ -73,3 +109,5 @@ function createNumberElement(newNumber) {
   result.append(square);
   result.append(numberSpan);
 }
+
+function restart() {}
