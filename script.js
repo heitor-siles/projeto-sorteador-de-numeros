@@ -11,11 +11,25 @@ const sortButton = document.querySelector(".sort");
 const sortAgain = document.querySelector(".again");
 const results = document.querySelector(".results");
 
+const allInputs = document.querySelectorAll("input");
+
 let canRepeat = true;
 
 let numbersToSort;
 let minimalNumber;
 let maximumNumber;
+
+numberAmount.addEventListener("input", () => {
+  numberAmount.value = numberAmount.value.replace(/\D/g, "");
+});
+
+from.addEventListener("input", () => {
+  from.value = from.value.replace(/\D/g, "");
+});
+
+to.addEventListener("input", () => {
+  to.value = to.value.replace(/\D/g, "");
+});
 
 repeat.onclick = function () {
   repeat.classList.toggle("active");
@@ -34,40 +48,43 @@ sortButton.addEventListener("click", () => {
   minimalNumber = Number(from.value);
   maximumNumber = Number(to.value);
 
-  if (
-    numbersToSort <= maximumNumber - minimalNumber &&
-    maximumNumber > minimalNumber
-  ) {
-    try {
-      let numbersSorted = new Array(numbersToSort);
-      let newNumber;
+  try {
+    let numbersSorted = new Array(numbersToSort);
+    let newNumber;
 
+    if (canRepeat) {
       for (let i = 0; i < numbersSorted.length; i++) {
-        if (canRepeat) {
-          numbersSorted[i] = generateNumber(minimalNumber, maximumNumber);
-          newNumber = numbersSorted.at(i);
-        } else {
+        numbersSorted[i] = generateNumber(minimalNumber, maximumNumber);
+        newNumber = numbersSorted.at(i);
+        createNumberElement(newNumber);
+      }
+      asidePrimary.classList.toggle("inactive");
+      asideSecondary.classList.toggle("inactive");
+    } else {
+      if (
+        numbersToSort <= maximumNumber - minimalNumber &&
+        maximumNumber > minimalNumber
+      ) {
+        for (let i = 0; i < numbersSorted.length; i++) {
           numbersSorted[i] = generateNonRepeatedNumber(
             minimalNumber,
             maximumNumber,
             numbersSorted,
           );
           newNumber = numbersSorted.at(i);
+          createNumberElement(newNumber);
         }
-
-        createNumberElement(newNumber);
+        asidePrimary.classList.toggle("inactive");
+        asideSecondary.classList.toggle("inactive");
+      } else {
+        console.log(
+          "A quantidade de números a ser sorteada é maior que o intervalor definido.",
+        );
       }
-
-      asidePrimary.classList.toggle("inactive");
-      asideSecondary.classList.toggle("inactive");
-    } catch (error) {
-      console.log(
-        "Não foi possível gerar o sorteio. Tente novamente mais tarde!",
-      );
     }
-  } else {
+  } catch (error) {
     console.log(
-      "A quantidade de números a ser sorteada é maior que o intervalor definido.",
+      "Não foi possível gerar o sorteio. Tente novamente mais tarde!",
     );
   }
 });
@@ -109,5 +126,3 @@ function createNumberElement(newNumber) {
   result.append(square);
   result.append(numberSpan);
 }
-
-function restart() {}
