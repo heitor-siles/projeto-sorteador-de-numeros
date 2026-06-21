@@ -13,6 +13,11 @@ const results = document.querySelector(".results");
 
 const allInputs = document.querySelectorAll("input");
 
+const warning = document.querySelector(".warning");
+const message = document.querySelector(".warning p");
+
+let warningMessage;
+
 let canRepeat = true;
 
 let numbersToSort;
@@ -43,49 +48,61 @@ repeat.onclick = function () {
   console.log(canRepeat);
 };
 
+console.log(numbersToSort, minimalNumber, maximumNumber);
+
 sortButton.addEventListener("click", () => {
   numbersToSort = Number(numberAmount.value);
   minimalNumber = Number(from.value);
   maximumNumber = Number(to.value);
 
-  try {
-    let numbersSorted = new Array(numbersToSort);
-    let newNumber;
+  if ((numbersToSort && minimalNumber && maximumNumber) != "") {
+    try {
+      console.log(numbersToSort, minimalNumber, maximumNumber);
+      let numbersSorted = new Array(numbersToSort);
+      let newNumber;
 
-    if (canRepeat) {
-      for (let i = 0; i < numbersSorted.length; i++) {
-        numbersSorted[i] = generateNumber(minimalNumber, maximumNumber);
-        newNumber = numbersSorted.at(i);
-        createNumberElement(newNumber);
-      }
-      asidePrimary.classList.toggle("inactive");
-      asideSecondary.classList.toggle("inactive");
-    } else {
-      if (
-        numbersToSort <= maximumNumber - minimalNumber &&
-        maximumNumber > minimalNumber
-      ) {
+      if (canRepeat) {
         for (let i = 0; i < numbersSorted.length; i++) {
-          numbersSorted[i] = generateNonRepeatedNumber(
-            minimalNumber,
-            maximumNumber,
-            numbersSorted,
-          );
+          numbersSorted[i] = generateNumber(minimalNumber, maximumNumber);
           newNumber = numbersSorted.at(i);
           createNumberElement(newNumber);
         }
         asidePrimary.classList.toggle("inactive");
         asideSecondary.classList.toggle("inactive");
       } else {
-        console.log(
-          "A quantidade de números a ser sorteada é maior que o intervalor definido.",
-        );
+        if (
+          numbersToSort <= maximumNumber - minimalNumber &&
+          maximumNumber > minimalNumber
+        ) {
+          for (let i = 0; i < numbersSorted.length; i++) {
+            numbersSorted[i] = generateNonRepeatedNumber(
+              minimalNumber,
+              maximumNumber,
+              numbersSorted,
+            );
+            newNumber = numbersSorted.at(i);
+            createNumberElement(newNumber);
+          }
+          asidePrimary.classList.toggle("inactive");
+          asideSecondary.classList.toggle("inactive");
+        } else {
+          warningMessage =
+            "ATENÇÃO! A quantidade de números a ser sorteada não pode ser maior que o intervalo definido.";
+          presentWarning(warningMessage);
+        }
       }
+    } catch (error) {
+      warningMessage =
+        "Não foi possível realizar o sorteio. Tente novamente mais tarde.";
+
+      presentWarning(warningMessage);
+    } finally {
     }
-  } catch (error) {
-    console.log(
-      "Não foi possível gerar o sorteio. Tente novamente mais tarde!",
-    );
+  } else {
+    warningMessage =
+      "ATENÇÃO! Há campos em branco. Favor preencher corretamente.";
+
+    presentWarning(warningMessage);
   }
 });
 
@@ -125,4 +142,13 @@ function createNumberElement(newNumber) {
   results.append(result);
   result.append(square);
   result.append(numberSpan);
+}
+
+function presentWarning(warningMessage) {
+  warning.classList.add("active");
+  message.textContent = warningMessage;
+
+  setTimeout(() => {
+    warning.classList.remove("active");
+  }, 5000);
 }

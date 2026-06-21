@@ -116,7 +116,7 @@ label {
 }
 
 .sort {
-  width: 100%;
+  width: 99%;
   height: 3.5rem;
   background-color: var(--bg-tertiary);
   font: var(--label-medium);

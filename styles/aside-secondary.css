@@ -1,3 +1,7 @@
+.secondary {
+  margin-block: 2rem;
+}
+
 .secondary.inactive {
   display: none;
 }
@@ -45,7 +49,7 @@
 }
 
 .again {
-  width: 100%;
+  width: 99%;
   height: 3.5rem;
   background-color: var(--bg-tertiary);
   font: var(--label-medium);
