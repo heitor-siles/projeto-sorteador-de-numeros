@@ -7,6 +7,8 @@ const to = document.getElementById("to");
 
 const repeat = document.getElementById("back");
 
+const sortNumber = document.querySelector(".sortNumber");
+
 const sortButton = document.querySelector(".sort");
 const sortAgain = document.querySelector(".again");
 const results = document.querySelector(".results");
@@ -23,6 +25,8 @@ let canRepeat = true;
 let numbersToSort;
 let minimalNumber;
 let maximumNumber;
+
+let counter = 1;
 
 numberAmount.addEventListener("input", () => {
   numberAmount.value = numberAmount.value.replace(/\D/g, "");
@@ -55,7 +59,10 @@ sortButton.addEventListener("click", () => {
   minimalNumber = Number(from.value);
   maximumNumber = Number(to.value);
 
-  if ((numbersToSort && minimalNumber && maximumNumber) != "") {
+  if (
+    (numbersToSort && minimalNumber && maximumNumber) != "" &&
+    minimalNumber < maximumNumber
+  ) {
     try {
       console.log(numbersToSort, minimalNumber, maximumNumber);
       let numbersSorted = new Array(numbersToSort);
@@ -65,6 +72,7 @@ sortButton.addEventListener("click", () => {
         for (let i = 0; i < numbersSorted.length; i++) {
           numbersSorted[i] = generateNumber(minimalNumber, maximumNumber);
           newNumber = numbersSorted.at(i);
+          sortNumber.textContent = `${counter}º RESULTADO`;
           createNumberElement(newNumber);
         }
         asidePrimary.classList.toggle("inactive");
@@ -81,6 +89,7 @@ sortButton.addEventListener("click", () => {
               numbersSorted,
             );
             newNumber = numbersSorted.at(i);
+            sortNumber.textContent = `${counter}º RESULTADO`;
             createNumberElement(newNumber);
           }
           asidePrimary.classList.toggle("inactive");
@@ -96,13 +105,52 @@ sortButton.addEventListener("click", () => {
         "Não foi possível realizar o sorteio. Tente novamente mais tarde.";
 
       presentWarning(warningMessage);
-    } finally {
     }
   } else {
-    warningMessage =
-      "ATENÇÃO! Há campos em branco. Favor preencher corretamente.";
+    switch (
+      (numbersToSort && minimalNumber && maximumNumber) == "" ||
+      minimalNumber > maximumNumber
+    ) {
+      case (numbersToSort && minimalNumber && maximumNumber) == "":
+        warningMessage =
+          "ATENÇÃO! Há campos em branco. Favor preencher corretamente.";
 
-    presentWarning(warningMessage);
+        presentWarning(warningMessage);
+        break;
+
+      case minimalNumber > maximumNumber:
+        warningMessage =
+          "ATENÇÃO! O número mínimo não pode ser maior que o número máximo";
+
+        presentWarning(warningMessage);
+        break;
+    }
+  }
+});
+
+sortAgain.addEventListener("click", () => {
+  newSort();
+  let numbersSorted = new Array(numbersToSort);
+  let newNumber;
+
+  if (canRepeat) {
+    for (let i = 0; i < numbersSorted.length; i++) {
+      numbersSorted[i] = generateNumber(minimalNumber, maximumNumber);
+      newNumber = numbersSorted.at(i);
+      sortNumber.textContent = `${counter}º RESULTADO`;
+      createNumberElement(newNumber);
+    }
+  } else {
+    for (let i = 0; i < numbersSorted.length; i++) {
+      numbersSorted[i] = generateNonRepeatedNumber(
+        minimalNumber,
+        maximumNumber,
+        numbersSorted,
+      );
+      newNumber = numbersSorted.at(i);
+      sortNumber.textContent = `${counter}º RESULTADO`;
+      createNumberElement(newNumber);
+    }
   }
 });
 
@@ -151,4 +199,9 @@ function presentWarning(warningMessage) {
   setTimeout(() => {
     warning.classList.remove("active");
   }, 5000);
+}
+
+function newSort() {
+  results.innerHTML = "";
+  counter++;
 }
