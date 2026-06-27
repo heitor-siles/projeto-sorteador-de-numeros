@@ -82,6 +82,7 @@ main {
   width: 75%;
   margin: 0 auto;
   overflow: hidden;
+  min-width: 350px;
 }
 
 .questions {
@@ -90,6 +91,7 @@ main {
 
 .main-container {
   width: 50%;
+  margin-block: 2rem;
 }
 
 #dinamic-secondary {
@@ -113,7 +115,7 @@ h1 {
   display: none;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.5rem;
   opacity: 0;
 
@@ -125,7 +127,6 @@ h1 {
   height: auto;
   padding-block: 1rem;
   border-radius: 2rem;
-  background-color: red;
   color: var(--content-primary);
   padding-inline: 1rem;
 
@@ -134,9 +135,29 @@ h1 {
   }
 }
 
+.warning.error {
+  background-color: red;
+}
+
+.warning.success {
+  background-color: green;
+}
+
 .warning.active {
   display: flex;
   animation: 5s ease appear;
+}
+
+.holder {
+  display: none;
+}
+
+.holder.active {
+  display: flex;
+}
+
+#dinamic-primary.inactive {
+  display: none;
 }
 
 @keyframes appear {
@@ -166,21 +187,17 @@ h1 {
     width: 100%;
   }
 
-  #dinamic-primary {
-    display: none;
-  }
-
-  #dinamic-secondary {
-    display: flex;
-    flex-direction: column;
-  }
-
   .warning {
     max-width: 90%;
   }
 
   .message {
     width: 90%;
+    text-wrap: wrap;
+  }
+
+  .results {
+    padding-block: 0rem;
   }
 }
 
@@ -197,20 +214,16 @@ h1 {
     width: 100%;
   }
 
-  #dinamic-primary {
-    display: none;
-  }
-
-  #dinamic-secondary {
-    display: flex;
-    flex-direction: column;
-  }
-
   .warning {
     max-width: 90%;
   }
 
   .message {
     width: 85%;
+    text-wrap: wrap;
+  }
+
+  .results {
+    padding-block: 0rem;
   }
 }

@@ -97,6 +97,8 @@ label {
   align-items: center;
   transition: background-image 0.2s ease;
   cursor: pointer;
+  border: none;
+  outline: none;
 }
 
 #back.active {
