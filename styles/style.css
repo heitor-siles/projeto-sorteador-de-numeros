@@ -85,11 +85,23 @@ main {
   min-width: 350px;
 }
 
+.logo {
+  position: absolute;
+  top: 15%;
+  left: 0;
+}
+
 .questions {
   width: 70%;
 }
 
 .main-container {
+  display: flex;
+  width: 100%;
+  gap: 10%;
+}
+
+.container {
   width: 50%;
   margin-block: 2rem;
 }
@@ -100,6 +112,8 @@ main {
 
 aside {
   width: 50%;
+  align-items: center;
+  justify-content: center;
 }
 
 h1 {
@@ -180,7 +194,12 @@ h1 {
 
 @media (769px <= width <= 1110px) {
   .main-container {
-    width: 90%;
+    gap: 0;
+    width: 100%;
+  }
+
+  .container {
+    width: 100%;
   }
 
   .questions {
@@ -199,6 +218,11 @@ h1 {
   .results {
     padding-block: 0rem;
   }
+
+  .logo {
+    position: relative;
+    padding-top: 2rem;
+  }
 }
 
 @media (width <= 768px) {
@@ -207,7 +231,12 @@ h1 {
   }
 
   .main-container {
-    width: 80%;
+    gap: 0;
+    width: 100%;
+  }
+
+  .container {
+    width: 100%;
   }
 
   .questions {
@@ -225,5 +254,10 @@ h1 {
 
   .results {
     padding-block: 0rem;
+  }
+
+  .logo {
+    position: relative;
+    padding-top: 2rem;
   }
 }
